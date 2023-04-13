@@ -1,8 +1,8 @@
 org/academiadecodigo/bootcamp/glass/model/products/MaxSub.class
-org/academiadecodigo/bootcamp/glass/model/AbstractModel.class
+org/academiadecodigo/bootcamp/glass/model/customer/Customer.class
 org/academiadecodigo/bootcamp/glass/model/products/Products.class
 org/academiadecodigo/bootcamp/glass/model/products/MediumSub.class
 org/academiadecodigo/bootcamp/glass/TransactionController.class
 org/academiadecodigo/bootcamp/glass/model/products/LightSub.class
 org/academiadecodigo/bootcamp/glass/LoginController.class
-org/academiadecodigo/bootcamp/glass/model/Customer.class
+org/academiadecodigo/bootcamp/glass/model/customer/AbstractModel.class
