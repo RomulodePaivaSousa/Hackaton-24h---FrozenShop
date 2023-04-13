@@ -5,3 +5,4 @@ org/academiadecodigo/bootcamp/glass/products/MaxSub.class
 org/academiadecodigo/bootcamp/glass/TransactionController.class
 org/academiadecodigo/bootcamp/glass/LoginController.class
 org/academiadecodigo/bootcamp/glass/products/MediumSub.class
+org/academiadecodigo/bootcamp/glass/customer/AbstractModel.class
