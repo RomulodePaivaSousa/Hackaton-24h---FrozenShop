@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.glass.Model;
 
-import org.academiadecodigo.bootcamp.glass.Products;
+
 
 import javax.persistence.*;
 
