@@ -1,7 +1,7 @@
 package org.academiadecodigo.bootcamp.glass.converters;
 
-import org.academiadecodigo.bootcamp.glass.DTO.CustomerDTO;
-import org.academiadecodigo.bootcamp.glass.customer.Customer;
+import org.academiadecodigo.bootcamp.glass.dto.CustomerDTO;
+import org.academiadecodigo.bootcamp.glass.model.customer.Customer;
 import org.springframework.stereotype.Component;
 
 @Component
