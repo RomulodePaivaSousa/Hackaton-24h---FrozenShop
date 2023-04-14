@@ -15,5 +15,7 @@ public interface DAO<T extends AbstractModel> {
 
     void delete(Integer id);
 
+    T findByEmail(String email);
+
 
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -50,5 +51,12 @@ public abstract class GenericJpaDao<T extends AbstractModel> implements DAO<T> {
     @Override
     public void delete(Integer id) {
         em.remove(em.find(modelType, id));
+    }
+
+    public T findByEmail(String email) {
+        TypedQuery<T> query = (TypedQuery<T>) em.createQuery(
+                "SELECT c FROM Customer c WHERE c.email = :custEmail");
+        query.setParameter("custEmail", email);
+        return query.getSingleResult();
     }
 }

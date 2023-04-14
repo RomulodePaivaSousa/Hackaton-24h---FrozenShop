@@ -7,7 +7,6 @@ org/academiadecodigo/bootcamp/glass/converters/AbstractConverter.class
 org/academiadecodigo/bootcamp/glass/exceptions/AssociationExistsException.class
 org/academiadecodigo/bootcamp/glass/dao/DAO.class
 org/academiadecodigo/bootcamp/glass/converters/CustomerDTOtoCustomer.class
-org/academiadecodigo/bootcamp/glass/controllers/TransactionController.class
 org/academiadecodigo/bootcamp/glass/dao/Jpa/GenericJpaDao.class
 org/academiadecodigo/bootcamp/glass/controllers/CustomerController.class
 org/academiadecodigo/bootcamp/glass/exceptions/FrozenShopException.class

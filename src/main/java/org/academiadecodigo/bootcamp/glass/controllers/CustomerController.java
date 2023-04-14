@@ -16,10 +16,11 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/")
 public class CustomerController {
 
     private CustomerService customerService;
@@ -57,14 +58,13 @@ public class CustomerController {
     @RequestMapping(method = RequestMethod.POST, path = {"/customer/add"})
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
 
+        Customer customer1;
         if (customer.getId() != null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-
-       else {
+        } else {
 
 
-           Customer customer1 = new Customer();
+            customer1 = new Customer();
 
             customer1.setFirstName(customer.getFirstName());
             customer1.setLastName(customer.getLastName());
@@ -75,7 +75,7 @@ public class CustomerController {
             customerService.save(customer1);
         }
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(customer1, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/customer/{id}")
@@ -107,10 +107,31 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/customer/{id}")
-    public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteCustomer(@PathVariable int id) {
 
         customerService.delete(id);
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+
+
+    @RequestMapping(method = RequestMethod.POST, path = "/customer/login")
+    public ResponseEntity<Customer> customerLogin(@RequestBody Customer customer) {
+
+        Customer customer1;
+
+        if (customerService.findByEmail(customer.getEmail()) != null) {
+            customer1 = customerService.findByEmail(customer.getEmail());
+
+            if (customer.getPassword().equals(customer1.getPassword())) {
+                return new ResponseEntity<>(customer1, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+
 }

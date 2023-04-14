@@ -5,21 +5,38 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.*;
 @Component
 public class CustomerDTO {
-     private Integer id;
-
+     private int id;
+     @NotNull(message = "First name is mandatory")
+     @NotBlank(message = "First name is mandatory")
+     @Size(min = 3, max = 45)
      private String firstName;
 
-
+    @NotNull(message = "Last name is mandatory")
+    @NotBlank(message = "Last name is mandatory")
+    @Size(min = 3, max = 45)
     private String lastName;
-
+    @Email
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
-
+    @NotBlank
+    @NotNull(message = "Password is mandatory")
     private String password;
-
 
     @Size(min = 9, max = 16)
     private String phone;
+
+    private String address;
+
+    @NotNull
+    @NotBlank
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;

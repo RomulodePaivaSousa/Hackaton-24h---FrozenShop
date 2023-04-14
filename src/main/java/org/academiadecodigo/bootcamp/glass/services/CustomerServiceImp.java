@@ -24,7 +24,6 @@ private CustomerDao customerDao;
         return customerDao.findById(id);
     }
 
-
     @Override
     public Customer save(Customer customer) {
         return customerDao.saveOrUpdate(customer);
@@ -33,5 +32,10 @@ private CustomerDao customerDao;
     @Override
     public void delete(Integer id) {
         customerDao.delete(id);
+    }
+
+    @Override
+    public Customer findByEmail(String email) {
+        return customerDao.findByEmail(email);
     }
 }
