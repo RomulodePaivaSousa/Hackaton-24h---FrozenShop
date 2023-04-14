@@ -11,11 +11,13 @@ public class CustomerToCustomerDTO extends AbstractConverter<Customer, CustomerD
     public CustomerDTO convert(Customer customer) {
 
         CustomerDTO customerDTO= new CustomerDTO();
+
         customerDTO.setId(customer.getId());
         customerDTO.setFirstName(customer.getFirstName());
         customerDTO.setLastName(customer.getLastName());
         customerDTO.setEmail(customer.getEmail());
         customerDTO.setPhone(customer.getPhone());
-        return super.convert(customer);
+
+        return customerDTO;
     }
 }

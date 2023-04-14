@@ -5,6 +5,7 @@ import org.academiadecodigo.bootcamp.glass.dao.DAO;
 
 import org.academiadecodigo.bootcamp.glass.model.customer.AbstractModel;
 import org.springframework.ui.Model;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +15,7 @@ import javax.persistence.criteria.Root;
 public abstract class GenericJpaDao<T extends AbstractModel> implements DAO<T> {
 
     protected Class<T> modelType;
-    @PersistenceContext
+
     protected EntityManager em;
 
     public GenericJpaDao(Class<T> modelType) {
@@ -22,6 +23,7 @@ public abstract class GenericJpaDao<T extends AbstractModel> implements DAO<T> {
     }
 
 
+    @PersistenceContext
     public void setEm(EntityManager em) {
         this.em = em;
     }
@@ -37,7 +39,7 @@ public abstract class GenericJpaDao<T extends AbstractModel> implements DAO<T> {
 
     @Override
     public T findById(Integer id) {
-        return em.find(modelType,id);
+        return em.find(modelType, id);
     }
 
     @Override
@@ -47,6 +49,6 @@ public abstract class GenericJpaDao<T extends AbstractModel> implements DAO<T> {
 
     @Override
     public void delete(Integer id) {
-em.remove(em.find(modelType,id));
+        em.remove(em.find(modelType, id));
     }
 }

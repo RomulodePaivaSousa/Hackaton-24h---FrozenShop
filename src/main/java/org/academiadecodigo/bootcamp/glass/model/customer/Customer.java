@@ -1,10 +1,7 @@
 package org.academiadecodigo.bootcamp.glass.model.customer;
 import org.academiadecodigo.bootcamp.glass.model.products.Products;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "customer")
@@ -16,12 +13,24 @@ public class Customer extends AbstractModel {
     @Column(unique = true)
     private String email;
 
+    private String password;
     private String address;
     @Column(unique = true)
     private String phone;
 
-    private double balance;
-    @OneToOne
+    private double balance = 0;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
     private Products products;
 
 
@@ -88,6 +97,7 @@ public class Customer extends AbstractModel {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", balance=" + balance +

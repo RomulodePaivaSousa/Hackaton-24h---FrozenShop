@@ -6,10 +6,10 @@ import org.academiadecodigo.bootcamp.glass.errors.ErrorMessage;
 /**
  * Thrown to indicate that an association still exists
  */
-public class AssociationExistsException extends JavaBankException {
+public class AssociationExistsException extends FrozenShopException {
 
     /**
-     * @see JavaBankException#JavaBankException(String)
+     * @see FrozenShopException#FrozenShopException(String)
      */
     public AssociationExistsException() {
         super(ErrorMessage.ASSOCIATION_EXISTS);

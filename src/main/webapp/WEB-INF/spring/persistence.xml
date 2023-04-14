@@ -44,7 +44,7 @@
             <map>
                 <entry key="hibernate.show_sql" value="true" />
                 <entry key="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-                <entry key="hibernate.hbm2ddl.auto" value="create"/>
+                <entry key="hibernate.hbm2ddl.auto" value="update"/>
                <!-- Run as create once to initialize the schema -->
                 <!--<entry key="hibernate.hbm2ddl.auto" value="validate"/>-->
             </map>

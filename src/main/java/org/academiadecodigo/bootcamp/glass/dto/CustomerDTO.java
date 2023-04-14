@@ -5,25 +5,19 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.*;
 @Component
 public class CustomerDTO {
-     private int id;
-     @NotNull(message = "First name is mandatory")
-     @NotBlank(message = "First name is mandatory")
-     @Size(min = 3, max = 45)
+     private Integer id;
+
      private String firstName;
 
-    @NotNull(message = "Last name is mandatory")
-    @NotBlank(message = "Last name is mandatory")
-    @Size(min = 3, max = 45)
+
     private String lastName;
-    @Email
-    @NotBlank(message = "Email is mandatory")
+
     private String email;
 
-    @NotBlank
-    @NotNull(message = "Password is mandatory")
+
     private String password;
 
-    @Pattern(regexp = "^\\+?[0-9]*$", message = "Phone number contains invalid characters")
+
     @Size(min = 9, max = 16)
     private String phone;
 

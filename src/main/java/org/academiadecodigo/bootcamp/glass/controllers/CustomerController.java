@@ -4,6 +4,7 @@ import org.academiadecodigo.bootcamp.glass.converters.CustomerDTOtoCustomer;
 import org.academiadecodigo.bootcamp.glass.converters.CustomerToCustomerDTO;
 import org.academiadecodigo.bootcamp.glass.dto.CustomerDTO;
 import org.academiadecodigo.bootcamp.glass.model.customer.Customer;
+import org.academiadecodigo.bootcamp.glass.services.CustomerService;
 import org.academiadecodigo.bootcamp.glass.services.CustomerServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,15 +19,15 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/customer")
+@RequestMapping("/")
 public class CustomerController {
 
-    private CustomerServiceImp customerService;
+    private CustomerService customerService;
     private CustomerDTOtoCustomer customerDtoToCustomer;
     private CustomerToCustomerDTO customerToCustomerDto;
 
     @Autowired
-    public void setCustomerService(CustomerServiceImp customerService) {
+    public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -49,26 +50,32 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customerToCustomerDto.convert(customer), HttpStatus.OK);
+        CustomerDTO customerDTO = customerToCustomerDto.convert(customer);
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = {"/", "customer/{id}"})
-    public ResponseEntity<?> addCustomer(@Valid @RequestBody CustomerDTO customerDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    @RequestMapping(method = RequestMethod.POST, path = {"/customer/add"})
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
 
-        if (bindingResult.hasErrors() || customerDto.getId() != null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (customer.getId() != null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
-        Customer savedCustomer = customerService.save(customerDtoToCustomer.convert(customerDto));
+       else {
 
-        // get help from the framework building the path for the newly created resource
-        UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + savedCustomer.getId()).build();
 
-        // set headers with the created path
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(uriComponents.toUri());
+           Customer customer1 = new Customer();
 
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+            customer1.setFirstName(customer.getFirstName());
+            customer1.setLastName(customer.getLastName());
+            customer1.setEmail(customer.getEmail());
+            customer1.setPhone(customer.getPhone());
+            customer1.setPassword(customer.getPassword());
+
+            customerService.save(customer1);
+        }
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/customer/{id}")
@@ -86,8 +93,15 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        customerDto.setId(id);
+        Customer customer = customerService.get(id);
 
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
+        customer.setPassword(customerDto.getPassword());
+
+        customerDto.setId(id);
         customerService.save(customerDtoToCustomer.convert(customerDto));
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -96,7 +110,7 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable Integer id) {
 
         customerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 }
