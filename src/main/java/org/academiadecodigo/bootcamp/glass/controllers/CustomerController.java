@@ -132,6 +132,60 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(method = RequestMethod.POST, path = "/customer/subscribeLight/{id}")
+    public ResponseEntity<Customer> subscribeLight(@PathVariable int id ) {
 
+       Customer customer = customerService.get(id);
+       customer.setBalance(customerService.get(id).getBalance() - 15);
+       customerService.save(customer);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/customer/subscribeMedium/{id}")
+    public ResponseEntity<Customer> subscribeMedium(@PathVariable int id ) {
+
+        Customer customer = customerService.get(id);
+        customer.setBalance(customerService.get(id).getBalance() - 40);
+        customerService.save(customer);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/customer/subscribeMax/{id}")
+    public ResponseEntity<Customer> subscribeMax(@PathVariable int id ) {
+
+        Customer customer = customerService.get(id);
+        customer.setBalance(customerService.get(id).getBalance() - 100);
+        customerService.save(customer);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/customer/deposit/{id}/{amount}")
+    public ResponseEntity<Customer> deposit(@RequestParam("id") int id, @RequestParam("amount") int amount) {
+
+        Customer customer = customerService.get(id);
+        customer.setBalance(customerService.get(id).getBalance() + amount);
+        customerService.save(customer);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/balance/{id}")
+    public ResponseEntity<?> balanceCustomer(@PathVariable Integer id) {
+
+        Customer customer = customerService.get(id);
+
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(customer.getBalance(), HttpStatus.OK);
+    }
 
 }
