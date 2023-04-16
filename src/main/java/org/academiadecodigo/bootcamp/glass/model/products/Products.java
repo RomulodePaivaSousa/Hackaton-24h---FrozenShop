@@ -1,11 +1,11 @@
 package org.academiadecodigo.bootcamp.glass.model.products;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
-
-
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "subType")
+@Table(name = "products")
 public abstract class Products {
 
     @Id
@@ -36,5 +36,14 @@ public abstract class Products {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
